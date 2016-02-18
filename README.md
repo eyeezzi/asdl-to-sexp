@@ -12,7 +12,9 @@ displayed in a GUI window.
     Tcl/tk (wish), and the file "viewtree.tk" in the current directory.
 
 ###How to execute the program:
-    Clone or download the repository and copy the two files asdl2sexp.py and viewtree.tk into the directory where your input file(s) resides. Then open a terminal from this directory and execute the following commands:
+    Clone or download the repository and copy the two files asdl2sexp.py and viewtree.tk into the 
+    directory where your input file(s) resides. Then open a terminal from this directory and execute 
+    the following commands:
     
     $ python asdl2sexp.py
         Displays an abridged version of this readme.
