@@ -37,7 +37,7 @@ displayed in a GUI window.
 ----------------------------------------------------------------------------------------------------
 
 Author: Uzziah Eyee (2016)   
-Licence: Potato License--Bake it, fry it, toast it, ...just don't waste it.
+License: Potato License--Bake it, fry it, toast it, ...just don't waste it.
 
 ----------------------------------------------------------------------------------------------------
 ####Credits:   
