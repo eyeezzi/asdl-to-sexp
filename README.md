@@ -36,7 +36,7 @@ displayed in a GUI window.
         myast.sexpr
 ----------------------------------------------------------------------------------------------------
 
-Author: Uzziah Eyee (2016)
+Author: Uzziah Eyee (2016)   
 Licence: Potato License--Bake it, fry it, toast it, ...just don't waste it.
 
 ----------------------------------------------------------------------------------------------------
