@@ -8,8 +8,40 @@ def cls():
     else:
         os.system('clear')
 
-def is_matching_paren(src):
+def recursive_conv(src):
 
+    if src.loc >= len(src.asdl):
+        return
+
+    if src.asdl[src.loc] != "(":
+        src.sexp += "("
+        while src.loc < len(src.asdl) and src.asdl[src.loc] != ")":
+            if src.asdl[src.loc] == "(":
+                src.sexp += " "
+                src.loc += 1
+                recursive_conv(src)
+            elif src.asdl[src.loc] == ",":
+                src.sexp += ") ("
+                src.loc += 1
+            else:
+                src.sexp += src.asdl[src.loc]
+                src.loc += 1
+        src.sexp += ")"
+        src.loc += 1
+        return
+
+    return
+
+class data:
+    def __init__(self, asdl):
+        self.asdl = asdl
+        self.loc = 0
+        self.sexp = ""
+
+def is_matching_paren(src):
+    """ recursively parses a string representing an AST in ASDL format
+        into a Lisp-style s-expression
+    """
     num_of_lparen = 0
     num_of_rparen = 0
 
@@ -27,7 +59,9 @@ def is_matching_paren(src):
         return False
 
 def asdl_to_sexpr(src):
-
+    """ iteratively parses a string representing an AST in ASDL format
+        into a Lisp-style s-expression
+    """
     asdl = list(src)
     output = list("")
     store = ""
@@ -124,8 +158,13 @@ elif len(sys.argv) >= 2:
 
         if not is_matching_paren(asdl_string):
             print("Warning: You have unmatching parenthesis in your ASDL AST")
+        ## uncomment the line below to use the iterative version.
+        # sexpr_string = asdl_to_sexpr(asdl_string)
 
-        sexpr_string = asdl_to_sexpr(asdl_string)
+        # comment the 3 lines below to use the iterative version.
+        mydata = data(asdl_string)
+        recursive_conv(mydata)
+        sexpr_string = mydata.sexp
 
         # the output file is named <input-file>.sexpr
         output_filename = "{}.sexpr".format(input_filename)
