@@ -8,6 +8,36 @@ def cls():
     else:
         os.system('clear')
 
+def sexpr_to_json(src):
+
+    if src.loc < len(src.sexp) and src.sexp[src.loc] == '(':
+        src.lp += 1
+        src.json += "{\"name\": \""
+        src.loc += 1
+        while src.loc < len(src.sexp):
+            if src.sexp[src.loc] == " ":
+                # we are going to add children
+                if src.lp - src.rp == src.depth:
+                    # don't create a new children node.
+                    src.json += "\",\"children\": ["
+                    break
+                else:
+                    # create a new children node.
+                    src.depth += 1
+                    src.json += "\",\"children\": ["
+                    src.loc += 1
+                    sexpr_to_json(src)
+            elif src.sexp[src.loc] == ")":
+                src.depth -= 1
+                src.json += "\""
+                src.loc += 1
+                src.rp += 1
+                break
+            else:
+                src.json += src.sexp[src.loc]
+                src.loc += 1
+        src.json += "]}"
+
 def recursive_conv(src):
 
     if src.loc >= len(src.asdl):
@@ -37,6 +67,11 @@ class data:
         self.asdl = asdl
         self.loc = 0
         self.sexp = ""
+        self.json = ""
+        self.lp = 0
+        self.rp = 0
+        self.close = False
+        self.depth = 0
 
 def is_matching_paren(src):
     """ recursively parses a string representing an AST in ASDL format
@@ -165,6 +200,12 @@ elif len(sys.argv) >= 2:
         mydata = data(asdl_string)
         recursive_conv(mydata)
         sexpr_string = mydata.sexp
+
+        mydata.loc = 0
+        sexpr_to_json(mydata)
+        print(mydata.sexp)
+        print(mydata.json)
+        exit()
 
         # the output file is named <input-file>.sexpr
         output_filename = "{}.sexpr".format(input_filename)
