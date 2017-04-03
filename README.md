@@ -25,10 +25,10 @@ displayed in a GUI window.
     Example:
         $ python asdl2sexp.py myast.ast
 
-###The output of the program:   
+### Program Output:   
     The program will produce the output file <input_filename>.sexpr, containing the s-expression
     corresponding to your supplied AST. If you have Tcl/tk installed and the file viewtree.tk in
-    your current working directory, the graphical tree for the AST will also be displayed.
+    your current working directory, the graphical tree for the AST will be displayed.
 
     Example:
         $ python asdl2exp.py myast.abc
